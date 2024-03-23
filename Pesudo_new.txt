@@ -1,0 +1,136 @@
+BEGIN
+
+# Menu class to represent the restaurant's menu and popularity of items.
+Class Menu:
+    Initialize:
+        Create an empty dictionary 'items' to store menu items and their prices.
+        Create an empty dictionary 'menu_popularity' to track the popularity of menu items.
+
+    Method 'show':
+        Print the 'menu_popularity' dictionary.
+
+#Table class to represent individual restaurant tables.
+Class Table:
+    Initialize with 'table_no':
+        Set 'table_no' to the provided table number.
+        Set 'status' to "Available".
+        Set 'session' to an empty string.
+        Set 'no_of_guests' to 0.
+        Create an empty dictionary 'orders' to store orders for the table.
+        Set 'cost' to 0.
+
+#Program class to manage restaurant operations.
+Class Program:
+    Initialize:
+        Create a dictionary 'earlyses_tables' for early session tables (table numbers 1 to 5).
+        Create a dictionary 'lateses_tables' for late session tables (table numbers 1 to 5).
+        Create empty lists 'earlyses_reserved_tables' and 'lateses_reserved_tables' to track reserved tables.
+        Create empty dictionaries 'earlyses_order_items' and 'lateses_order_items' to store order items.
+        Create an empty list 'priority_orders' to track priority menu items.
+        Set 'order_price' to 0.
+        Set 'total_income' to 0.
+        Create an empty dictionary 'table_costs' to store costs for each table.
+        Set 'total_tips' to 0.
+        Create an instance of the Menu class and store it in 'menu'.
+
+    Method 'place_order':
+        Display session options ("1. Early Session", "2. Late Session").
+        Prompt the user to select a session ('Session').
+        Prompt the user for the number of guests ('no_guest').
+        If 'no_guest' is between 1 and 8 (inclusive):
+            If 'Session' is 1 (Early Session):
+                Prompt for a 'table_no'.
+                If 'table_no' is not in 'earlyses_reserved_tables':
+                    Get the table object based on 'table_no'.
+                    Start a loop to take order items until '0' is entered:
+                        Prompt for an 'order_item'.
+                        Prompt for a 'portion' of the item.
+                        Store the 'order_item' and 'portion' in 'earlyses_order_items'.
+                    Calculate the 'order_price' based on the menu items and portions.
+                    Update the popularity of items in the menu.
+                    Update the table's orders, session, and status.
+                    Calculate the tip based on the 'order_price'.
+                    If items are ordered, prompt for a payment method ('pay_method').
+                    If 'pay_method' is 1, add a 10% service charge to 'order_price'.
+                    Update the table status, number of diners, and cost.
+                    Update 'total_income', 'total_tips', and 'table_costs'.
+                    Add 'table_no' to 'earlyses_reserved_tables'.
+                Else:
+                    Print that the table is already occupied for the early session.
+            If 'Session' is 2 (Late Session):
+                Prompt for a 'table_no'.
+                If 'table_no' is not in 'lateses_reserved_tables':
+                    Get the table object based on 'table_no'.
+                    Start a loop to take order items until '0' is entered:
+                        Prompt for an 'order_item'.
+                        Prompt for a 'portion' of the item.
+                        Store the 'order_item' and 'portion' in 'lateses_order_items'.
+                    Calculate the 'order_price' based on the menu items and portions.
+                    Update the popularity of items in the menu.
+                    Update the table's orders, session, and status.
+                    Calculate the tip based on the 'order_price'.
+                    If items are ordered, prompt for a payment method ('pay_method').
+                    If 'pay_method' is 1, add a 10% service charge to 'order_price'.
+                    Update the table status, number of guests, and cost.
+                    Update 'total_income', 'total_tips', and 'table_costs'.
+                    Add 'table_no' to 'lateses_reserved_tables'.
+                Else:
+                    Print that the table is already occupied for the late session.
+            If 'Session' is neither 1 nor 2, print an invalid session message.
+        If 'no_guest' is not between 1 and 8, print a message that only 8 guests are allowed per table.
+
+    Method 'income':
+        Print the total income and total tips collected.
+
+    Method 'table_status':
+        Print the status of early session tables and late session tables.
+        Find and print the table with the highest cost.
+
+    Method 'popularity':
+        Sort menu items by popularity (based on 'menu_popularity').
+        Print menu items and their order counts in descending order of popularity.
+
+    Method 'beverages':
+        Display session options ("1. Early Session", "2. Late Session").
+        Prompt the user to select a session ('sess').
+        If 'sess' is 1 (Early Session):
+            Print the list of occupied tables in the early session.
+            Prompt for a 'table_num'.
+            If 'table_num' is in 'earlyses_reserved_tables':
+                Prompt for a 'portion' of beverages ('p').
+                Update 'earlyses_order_items' with the portion.
+                Update the table's orders with beverages.
+                Print a success message.
+            Else:
+                Print a message that the table is not reserved yet.
+        If 'sess' is 2 (Late Session):
+            Print the list of reserved tables in the late session.
+            Prompt for a 'table_num'.
+            If 'table_num' is in 'lateses_reserved_tables':
+                Prompt for a 'portion' of beverages ('p').
+                Update 'lateses_order_items' with the portion.
+                Update the table's orders with beverages.
+                Print a success message.
+            Else:
+                Print a message that the table is not reserved yet.
+        If 'sess' is neither 1 nor 2, print an invalid session message.
+
+    Method 'run':
+        Start an infinite loop.
+        Display a welcome message.
+        Display a list of options (Reserve a Table, Tables Availability, Total Income, Menu Popularity, Drinks, Quiet).
+        Prompt the user to choose an option ('opt').
+        If 'opt' is 1, call 'place_order' to reserve a table.
+        If 'opt' is 2, call 'table_status' to show table availability.
+        If 'opt' is 3, call 'income' to display total income and tips collected.
+        If 'opt' is 4, call 'popularity' to display menu popularity.
+        If 'opt' is 5, call 'beverages' to add beverages to a table's order.
+        If 'opt' is 6, exit the program.
+        If 'opt' is not a valid option, print an invalid option message.
+
+# Main program entry point.
+If the program is run as the main script:
+    Create an instance of the Program class called 'restaurant'.
+    Call the 'run' method on 'restaurant' to start the restaurant management system.
+
+END
